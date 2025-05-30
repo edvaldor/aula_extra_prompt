@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula: Prompts para IA de Programação (Cursor)</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      font-size: 28px;
+      background-color: #fff;
+      color: #000;
+    }
+    .slide {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+    .slide.active {
+      display: flex;
+    }
+    h1, h2 {
+      color: #0057ff;
+    }
+    pre {
+      background: #f4f4f4;
+      border-left: 5px solid #0057ff;
+      padding: 15px;
+      width: 90%;
+      max-width: 900px;
+      text-align: left;
+      font-size: 0.8em;
+    }
+    ul {
+      text-align: left;
+      max-width: 900px;
+      font-size: 0.9em;
+    }
+    #navigator {
+      position: fixed;
+      bottom: 10px;
+      right: 20px;
+    }
+    #navigator button {
+      padding: 6px 12px;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide active">
+    <h1>Geração de Prompts para IA Cursor</h1>
+    <p>Uma abordagem baseada em Análise e Desenvolvimento de Sistemas</p>
+  </div>
+
+  <div class="slide">
+    <h2>1. Comece pelo Escopo do Projeto</h2>
+    <ul>
+      <li>Qual é o objetivo do sistema?</li>
+      <li>Quais funcionalidades ele precisa ter?</li>
+      <li>Quem vai usar? (perfil do usuário)</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h2>2. Escolha da Linguagem</h2>
+    <ul>
+      <li>Baseada no escopo e na equipe:</li>
+      <li>Web simples? <strong>HTML + JS</strong></li>
+      <li>Aplicativo completo? <strong>Java, Python, C#</strong></li>
+      <li>Quem vai manter o sistema?</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h2>3. Especificando para a IA</h2>
+    <p>Crie prompts com informações claras:</p>
+    <pre>
+Crie um sistema web com login e cadastro de usuários usando HTML, CSS e JavaScript. 
+O sistema deve ter validação de e-mail e senha com pelo menos 6 caracteres.</pre>
+    <p>❌ Não diga apenas: "faça um sistema de login"</p>
+  </div>
+
+  <div class="slide">
+    <h2>4. Onde criar o prompt?</h2>
+    <ul>
+      <li>Recomenda-se gerar o prompt no ChatGPT</li>
+      <li>Depois, copiar para o Cursor</li>
+      <li>Motivo: o GPT pode ajudar a refinar o pedido</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h2>5. Como Especificar Melhor?</h2>
+    <ul>
+      <li>Descreva:</li>
+      <li>Objetivo do sistema</li>
+      <li>Telas esperadas</li>
+      <li>Funcionalidades principais</li>
+      <li>Regras de negócio (ex: "idade deve ser maior que 18")</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h2>6. Sobre o Banco de Dados</h2>
+    <ul>
+      <li>É ideal que o modelo esteja pronto antes</li>
+      <li>Crie e mostre um <strong>Modelo Entidade Relacionamento</strong> (MER)</li>
+      <li>Exemplo:</li>
+    </ul>
+    <pre>
+Usuário(id, nome, email, senha)
+Produto(id, nome, preco, estoque)</pre>
+  </div>
+
+  <div class="slide">
+    <h2>7. Modelo de Prompt para Cursor</h2>
+    <pre>
+Crie uma aplicação web simples com cadastro de produtos.
+Use HTML + CSS + JavaScript. 
+Banco de dados simulado em objeto JS. Campos: nome, preço, estoque.
+Inclua validação, layout responsivo e mensagens de sucesso/erro.</pre>
+  </div>
+
+  <div class="slide">
+    <h2>8. Boas práticas de desenvolvimento</h2>
+    <ul>
+      <li>Analise primeiro, codifique depois</li>
+      <li>Use nomenclaturas claras</li>
+      <li>Valide com o usuário ou equipe</li>
+      <li>Teste cada módulo separadamente</li>
+    </ul>
+  </div>
+
+  <div class="slide">
+    <h2>🎯 Desafio Final</h2>
+    <ul>
+      <li>Monte o escopo de um sistema web</li>
+      <li>Gere o prompt ideal para o Cursor</li>
+      <li>Simule o banco com um MER</li>
+      <li>Peça para a IA gerar as telas</li>
+      <li>Apresente no GitHub ou Vercel</li>
+      <li>Vale Nota!</li>
+    </ul>
+  </div>
+
+  <div id="navigator">
+    <span id="counter">Slide 1</span>
+    <button onclick="prevSlide()">◀</button>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('counter');
+    let current = 0;
+
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[index].classList.add('active');
+      counter.textContent = `Slide ${index + 1} de ${slides.length}`;
+    }
+
+    function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    }
+
+    function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+    });
+
+    showSlide(current);
+  </script>
+</body>
+</html>
